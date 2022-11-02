@@ -74,10 +74,24 @@ namespace _1._1JurassicPark
                 }
                 else if (choice == "V")
                 {
-                    Console.WriteLine("Below are the dinosaurs found on our list: ");
-                    foreach (var dinosaur in dinosaurs)
+
+                    Console.WriteLine("Would you like to see the dinosaur list by (N)ame, or by (E)nclosureNumber? ");
+                    var choice2 = Console.ReadLine().ToUpper();
+                    if (choice2 == "N")
                     {
-                        Console.WriteLine($"{dinosaur.Name} weights {dinosaur.Weight}, eats a diet of {dinosaur.DietType},is in enclosure #{dinosaur.EnclosureNumber}, and was acquired on {dinosaur.WhenAcquired}. ");
+                        Console.WriteLine("Here are all of the names in our list: ");
+                        foreach (var dinosaur in dinosaurs)
+                        {
+                            Console.WriteLine($"{dinosaur.Name}");
+                        }
+                    }
+                    else if (choice2 == "E")
+                    {
+                        Console.WriteLine("These are the existing enclosure numbers: ");
+                        foreach (var dinosaur in dinosaurs)
+                        {
+                            Console.WriteLine($"{dinosaur.EnclosureNumber}");
+                        }
                     }
 
                 }
