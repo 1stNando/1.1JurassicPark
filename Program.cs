@@ -5,7 +5,6 @@ namespace _1._1JurassicPark
 {
     class Program
     {
-
         static void DisplayGreeting()
         {
             Console.WriteLine("----------------------------------------");
@@ -52,6 +51,8 @@ namespace _1._1JurassicPark
         static void Main(string[] args)
         {
             Console.WriteLine("Hello!");
+            var rightNow = DateTime.Now;
+            Console.WriteLine($"This is your current date and time: " + rightNow);
             DisplayGreeting();
 
             //Adding a List to store our dinosaur.
@@ -65,7 +66,7 @@ namespace _1._1JurassicPark
             while (keepGoing)
             {
                 Console.WriteLine();
-                Console.Write("What would you like to do?\n(V)iew all the dinosaurs on the list\n(A)dd a dinosaur\n(D)elete a dinosaur\n(Q)uit\n: ");
+                Console.Write("What would you like to do?\n(V)iew all the dinosaurs on the list\n(A)dd a dinosaur\n(D)elete a dinosaur\n(T)ransfer\n(Q)uit\n: ");
                 var choice = Console.ReadLine().ToUpper();
 
                 if (choice == "Q")
@@ -95,6 +96,25 @@ namespace _1._1JurassicPark
                     }
 
                 }
+
+                if (choice == "T")
+                {
+                    var nameToSearchFor = PromptForString("What name are you trying to transfer? ");
+                    Dinosaur foundDinosaur = dinosaurs.FirstOrDefault(dinosaur => dinosaur.Name == nameToSearchFor);
+
+                    if (foundDinosaur == null)
+                    {
+                        Console.WriteLine("No such dinosaur!");
+                    }
+                    else
+                    {
+
+                    }
+
+
+
+                }
+
                 else if (choice == "A")
                 {   //CREATE  
                     //Make a new dinosaur object
