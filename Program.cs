@@ -76,14 +76,22 @@ namespace _1._1JurassicPark
                 else if (choice == "V")
                 {
 
-                    Console.WriteLine("Would you like to see the dinosaur list by (N)ame, or by (E)nclosureNumber? ");
+                    Console.WriteLine("Would you like to see the dinosaur list by (A)ll facts, or sorted by (N)ame, and (E)nclosureNumber? ");
                     var choice2 = Console.ReadLine().ToUpper();
                     if (choice2 == "N")
                     {
-                        Console.WriteLine("Here are all of the names in our list: ");
+
+                        var sortedList = dinosaurs.OrderBy(x => x.Name).ToList();
+                        foreach (var dinosaur in sortedList)
+                        {
+                            Console.WriteLine(dinosaur.Name);
+                        }
+                    }
+                    else if (choice2 == "A")
+                    {
                         foreach (var dinosaur in dinosaurs)
                         {
-                            Console.WriteLine($"{dinosaur.Name}");
+                            Console.WriteLine($"Name: {dinosaur.Name}, Enclosure #: {dinosaur.EnclosureNumber}, Diet type: {dinosaur.DietType}, Weight: {dinosaur.Weight}, When Acquired: {dinosaur.WhenAcquired}.");
                         }
                     }
                     else if (choice2 == "E")
@@ -108,11 +116,8 @@ namespace _1._1JurassicPark
                     }
                     else
                     {
-
+                        //If dinosaur was found, ask user what enclosure number they would like to transfer the current to?
                     }
-
-
-
                 }
 
                 else if (choice == "A")
@@ -124,7 +129,7 @@ namespace _1._1JurassicPark
                     dinosaur.Weight = PromptForInteger("How much is the weight (in pounds)? ");
                     dinosaur.DietType = PromptForString("What type of diet? ");
                     dinosaur.EnclosureNumber = PromptForInteger("What is the enclosure number? ");
-                    dinosaur.WhenAcquired = PromptForString("What year was it obtained? ");
+                    dinosaur.WhenAcquired = rightNow.ToString();
                     //Add new dinosaur object to the list
                     dinosaurs.Add(dinosaur);
 
