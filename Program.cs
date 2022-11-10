@@ -73,6 +73,7 @@ namespace _1._1JurassicPark
                 {   //User choses to quit, so set keepGoing to false
                     keepGoing = false;
                 }
+
                 else if (choice == "V")
                 {
 
@@ -80,7 +81,9 @@ namespace _1._1JurassicPark
                     var choice2 = Console.ReadLine().ToUpper();
                     if (choice2 == "N")
                     {
-
+                        //We now create a NEW variable to contain dinosaurs ordered by name.KEY POINT to make is 
+                        //that we also NEED to use the foreach loop to implement the sortedList we created. We must iterate through 
+                        //this is how we are able to sort the list of dinosaurs by Name.
                         var sortedList = dinosaurs.OrderBy(x => x.Name).ToList();
                         foreach (var dinosaur in sortedList)
                         {
@@ -96,100 +99,99 @@ namespace _1._1JurassicPark
                     }
                     else if (choice2 == "E")
                     {
-                        Console.WriteLine("These are the existing enclosure numbers: ");
-                        foreach (var dinosaur in dinosaurs)
+                        var sortedList = dinosaurs.OrderBy(x => x.EnclosureNumber).ToList();
+                        foreach (var dinosaur in sortedList)
                         {
-                            Console.WriteLine($"{dinosaur.EnclosureNumber}");
+                            Console.WriteLine($"Number: {dinosaur.EnclosureNumber} contains {dinosaur.Name}");
+                        }
+
+                    }
+
+                    if (choice == "T")
+                    {
+                        var nameToSearchFor = PromptForString("What name are you trying to transfer? ");
+                        Dinosaur foundDinosaur = dinosaurs.FirstOrDefault(dinosaur => dinosaur.Name == nameToSearchFor);
+
+                        if (foundDinosaur == null)
+                        {
+                            Console.WriteLine("No such dinosaur!");
+                        }
+                        else
+                        {
+                            //If dinosaur was found, ask user what enclosure number they would like to transfer the current to?
                         }
                     }
 
-                }
+                    else if (choice == "A")
+                    {   //CREATE  
+                        //Make a new dinosaur object
+                        var dinosaur = new Dinosaur();
+                        //Prompt for values and save them in the dinosaur's properties
+                        dinosaur.Name = PromptForString("What is the name? ");
+                        dinosaur.Weight = PromptForInteger("How much is the weight (in pounds)? ");
+                        dinosaur.DietType = PromptForString("What type of diet? ");
+                        dinosaur.EnclosureNumber = PromptForInteger("What is the enclosure number? ");
+                        dinosaur.WhenAcquired = rightNow.ToString();
+                        //Add new dinosaur object to the list
+                        dinosaurs.Add(dinosaur);
 
-                if (choice == "T")
-                {
-                    var nameToSearchFor = PromptForString("What name are you trying to transfer? ");
-                    Dinosaur foundDinosaur = dinosaurs.FirstOrDefault(dinosaur => dinosaur.Name == nameToSearchFor);
 
-                    if (foundDinosaur == null)
-                    {
-                        Console.WriteLine("No such dinosaur!");
                     }
-                    else
+
+                    else if (choice == "D")
                     {
-                        //If dinosaur was found, ask user what enclosure number they would like to transfer the current to?
-                    }
-                }
+                        //get employee name
+                        var nameToSearchFor = PromptForString("What name are you looking to delete? ");
 
-                else if (choice == "A")
-                {   //CREATE  
-                    //Make a new dinosaur object
-                    var dinosaur = new Dinosaur();
-                    //Prompt for values and save them in the dinosaur's properties
-                    dinosaur.Name = PromptForString("What is the name? ");
-                    dinosaur.Weight = PromptForInteger("How much is the weight (in pounds)? ");
-                    dinosaur.DietType = PromptForString("What type of diet? ");
-                    dinosaur.EnclosureNumber = PromptForInteger("What is the enclosure number? ");
-                    dinosaur.WhenAcquired = rightNow.ToString();
-                    //Add new dinosaur object to the list
-                    dinosaurs.Add(dinosaur);
-
-
-                }
-
-                else if (choice == "D")
-                {
-                    //get employee name
-                    var nameToSearchFor = PromptForString("What name are you looking to delete? ");
-
-                    //Search database to see if they exist!
-                    Dinosaur foundDinosaur = dinosaurs.FirstOrDefault(dinosaur => dinosaur.Name == nameToSearchFor);
-                    //If we did not find an employee
-                    if (foundDinosaur == null)
-                    {
-                        //Show that the person doesn't exist
-                        Console.WriteLine("No such dinosaur found! ");
-                    }
-                    //if dinosaur is found
-                    else
-                    {
-                        Console.WriteLine($"{foundDinosaur.Name} was found they can be found in enclosure #{foundDinosaur.EnclosureNumber}.");
-                        //ask to confirm deletion
-                        var confirm = PromptForString("Are you sure you want to delete this one? [Y/N] ").ToUpper();
-                        if (confirm == "Y")
+                        //Search database to see if they exist!
+                        Dinosaur foundDinosaur = dinosaurs.FirstOrDefault(dinosaur => dinosaur.Name == nameToSearchFor);
+                        //If we did not find an employee
+                        if (foundDinosaur == null)
                         {
-                            //delete them!
-                            dinosaurs.Remove(foundDinosaur);
+                            //Show that the person doesn't exist
+                            Console.WriteLine("No such dinosaur found! ");
+                        }
+                        //if dinosaur is found
+                        else
+                        {
+                            Console.WriteLine($"{foundDinosaur.Name} was found they can be found in enclosure #{foundDinosaur.EnclosureNumber}.");
+                            //ask to confirm deletion
+                            var confirm = PromptForString("Are you sure you want to delete this one? [Y/N] ").ToUpper();
+                            if (confirm == "Y")
+                            {
+                                //delete them!
+                                dinosaurs.Remove(foundDinosaur);
+                            }
+                        }
+
+                    }
+
+                    else if (choice == "F")
+                    {
+                        // Prompt for the name
+                        var nameToSearchFor = PromptForString("What name are you looking for? ");
+                        //Show the use of LINQ method shortcut style to search for something.!SUPERPOWER.!!!!!!
+                        Dinosaur foundDinosaur = dinosaurs.FirstOrDefault(dinosaur => dinosaur.Name == nameToSearchFor);
+
+                        //After the loop, 'foundEmployee' is either 'null' (not found) or refers to the matching item
+                        if (foundDinosaur == null)
+                        {
+                            Console.WriteLine("No such dinosaur!");
+                        }
+                        else
+                        {
+                            //Show a message if 'null', 
+                            //otherwise show the details.
+                            Console.WriteLine($"{foundDinosaur.Name} is in enclosure #{foundDinosaur.EnclosureNumber} and weights {foundDinosaur.Weight}. ");
                         }
                     }
 
-                }
-
-                else if (choice == "F")
-                {
-                    // Prompt for the name
-                    var nameToSearchFor = PromptForString("What name are you looking for? ");
-                    //Show the use of LINQ method shortcut style to search for something.!SUPERPOWER.!!!!!!
-                    Dinosaur foundDinosaur = dinosaurs.FirstOrDefault(dinosaur => dinosaur.Name == nameToSearchFor);
-
-                    //After the loop, 'foundEmployee' is either 'null' (not found) or refers to the matching item
-                    if (foundDinosaur == null)
-                    {
-                        Console.WriteLine("No such dinosaur!");
-                    }
-                    else
-                    {
-                        //Show a message if 'null', 
-                        //otherwise show the details.
-                        Console.WriteLine($"{foundDinosaur.Name} is in enclosure #{foundDinosaur.EnclosureNumber} and weights {foundDinosaur.Weight}. ");
-                    }
-                }
 
 
+                }//end of while loop
 
-            }//end of while loop
 
-
+            }
         }
     }
-}
 
